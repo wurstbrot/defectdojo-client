@@ -1,12 +1,9 @@
 #!/bin/bash
 
-BRANCH=master
+PRODUCT_ID=4
+./pipeline.bash "$PRODUCT_ID" "master" "/home/tpagel/git/defectdojo-client/example/dependency-check-full.xml" "Dependency Check Scan" "dep. check"
+./pipeline.bash "$PRODUCT_ID" "master" "/home/tpagel/git/defectdojo-client/example/dependency-check-full-CVE-2002-2272.xml" "Dependency Check Scan" "dep. check"
 
-./pipeline.bash "1" "master" "/home/tpagel/git/defectdojo_api/examples/dependency/dependency-check-report.xml"
-./pipeline.bash "1" "master" "/home/tpagel/git/defectdojo_api/examples/dependency/dependency-check-report-minus-AppleJavaExtensions.xml"
-./pipeline.bash "1" "master" "/home/tpagel/git/defectdojo_api/examples/dependency/dependency-check-report-minus-AppleJavaExtensions-minus-spring-txt.xml"
+./pipeline.bash "$PRODUCT_ID" "develop" "/home/tpagel/git/defectdojo-client/example/dependency-check-full.xml" "Dependency Check Scan" "dep. check"
+./pipeline.bash "$PRODUCT_ID" "develop" "/home/tpagel/git/defectdojo-client/example/dependency-check-full-CVE-2002-2272.xml" "Dependency Check Scan" "dep. check"
 
-
-./pipeline.bash "1" "develop" "/home/tpagel/git/defectdojo_api/examples/dependency/dependency-check-report.xml"
-./pipeline.bash "1" "develop" "/home/tpagel/git/defectdojo_api/examples/dependency/dependency-check-report-minus-AppleJavaExtensions.xml"
-./pipeline.bash "1" "develop" "/home/tpagel/git/defectdojo_api/examples/dependency/dependency-check-report-minus-AppleJavaExtensions-minus-spring-txt.xml"
