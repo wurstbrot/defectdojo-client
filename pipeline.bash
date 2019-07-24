@@ -6,6 +6,7 @@ PATH_TO_REPORT=$3
 SCAN_TYPE=$4
 TEST_NAME_PREFIX=$5
 
+
 source ./env
 
 if [ "$PRODUCT_ID" == "" ]; then
@@ -77,10 +78,18 @@ fi
 
 RESP=$(./dd-curl.bash \
 	-X GET \
+	"$DEFECTDOJO_HOST_URL/products/$PRODUCT_ID/?id=$PRODUCT_ID")
+FETCHED_PRODUCT_ID=$(echo $RESP | jq '.id')
+if ! is_int $FETCHED_PRODUCT_ID ; then
+	echo "Could not get product id $PRODUCT_ID, does it exists?"
+	exit 1;
+fi
+
+RESP=$(./dd-curl.bash \
+	-X GET \
 	"$DEFECTDOJO_HOST_URL/engagements/?product=$PRODUCT_ID")
 
 if [ $(echo $RESP | jq '.results[]? | select(.branch_tag == "'$BRANCH_NAME'")' | wc -l) -eq 0 ]; then
-	echo '{"branch_tag": "'$BRANCH_NAME'", "version": "v1.0", "engagement_type": "CI/CD", "product": "'$PRODUCT_ID'", "name": "'$TEST_NAME_PREFIX' '$BRANCH_NAME'", "target_start": "'$d'", "target_end": "2118-06-01", "active": "True", "pen_test": "False", "check_list": "False", "threat_model": "False", "status": "In Progress", "deduplication_on_engagement": "True", "lead": "1"}';
 	RESP=$(./dd-curl.bash \
     	-X POST \
         -d '{"branch_tag": "'$BRANCH_NAME'", "version": "v1.0", "engagement_type": "CI/CD", "product": "'$PRODUCT_ID'", "name": "'$TEST_NAME_PREFIX' '$BRANCH_NAME'", "target_start": "'$d'", "target_end": "2118-06-01", "active": "True", "pen_test": "False", "check_list": "False", "threat_model": "False", "status": "In Progress", "deduplication_on_engagement": "True", "lead": "1"}' \

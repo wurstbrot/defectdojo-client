@@ -1,11 +1,19 @@
 #!/bin/bash
 
-export DEFECT_DOJO_HOST_NAME=192.168.122.1
+# specific variables for this project
+#export PRODUCT_ID=1
+#export SCAN_TYPE="Dependency Check Scan" 
+#export PREFIX="dep. check"
+
+# global variables
+export API_KEY=
+
+export DEFECT_DOJO_HOST_NAME=localhost
 export DEFECT_DOJO_PORT=8080
 export DEFECT_DOJO_PROTOCOL=http
-export API_KEY=3fdbfbacf25c3fe2f6f035a150e4aba36b37b2f9
 export CRITICALITIES_FOR_FINDGS="Critical High"
 
+# generated varaibles
 export API_URI="/api/v2"
 export DEFECTDOJO_HOST_URL="$DEFECT_DOJO_PROTOCOL://$DEFECT_DOJO_HOST_NAME:$DEFECT_DOJO_PORT$API_URI"
 
